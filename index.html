@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sistema de cadastro de anúncios</title>
+	</head>
+	<body>
+		<h1>Sistema de cadastro de anúncios</h1>
+		<h2>Cadastrar novo anúncio</h2>
+		<div>
+			<label>
+				<span>Nome do anúncio</span>
+				<input type="text" class="input_text" name="nome" id="name"/>
+			</label>
+			
+			<label>
+				<span>Cliente</span>
+				<input type="text" class="input_text" name="cliente" id="client"/>
+			</label>	
+
+			<label>
+				<span>Data de início</span>
+				<input type="date" class="input_date" name="data1" id="startdate"/>
+			</label>
+
+			<label>
+				<span>Data de término</span>
+				<input type="date" class="input_date" name="data2" id="enddate"/>
+			</label>
+
+			<label>
+				<span>Investimento por dia</span>
+				<input type="number" class="input_currency" name="inv" id="inv"/>
+			</label>
+			
+			<label>
+				<input type="submit" class="button" onclick="alert('Cadastro efetuado')" value="Cadastrar"/>
+			</label>
+			
+		</div>
+		<h2>Anúncios cadastrados</h2>
+		<table id="tblListar">
+
+		</table>
+	</body>
+</html>
