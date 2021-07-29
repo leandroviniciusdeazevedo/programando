@@ -329,61 +329,165 @@ update livro set data_edicao = "2005-09-08" where data_edicao is null;
 
 select nome, autor from livro order by data_edicao desc ;
 
-        x) Selecionar o nome do livro e a data de edição formatada no formado MM/YY.
+ ????       x) Selecionar o nome do livro e a data de edição formatada no formado MM/YY.
+        
+select nome, month(data_edicao), year(data_edicao) from livro;
 
-select nome , data_edicao from livro;
+--      y) Selecionar os autores que tiveram livros nas edições entre as datas 01/01/1989 e 31/12/1989 (utilizar between ou >= e <=) 
+-- Exemplo: WHERE DATA BETWEEN 
+--        TO_DATE('01/01/2001', 'DD/MM/YYYY') AND 
+--          TO_DATE('31/12/2001');
 
-        y) Selecionar os autores que tiveram livros nas edições entre as datas 01/01/1989 e 31/12/1989 (utilizar between ou >= e <=) 
-Exemplo: WHERE DATA BETWEEN 
-        TO_DATE('01/01/2001', 'DD/MM/YYYY') AND 
-          TO_DATE('31/12/2001');
-        z) Alterar as colunas de nome do livro, autor e ano da edição para obrigatórios (NOT NULL)
-        aa) Inserir um livro dos os dados abaixo, verifique que irá exibir um erro no console:  
-Nome: Cem Anos de Solidão
-Autor: Gabriel García Márquez
+select autor from livro where data_edicao between '1989-01-01' and '1989-12-31';
 
-Alterar agora o inser para inserir a data de edição para a data 03/06/1879, e insira novamente o livro. Verifique que irá funcionar o insert.
-        bb) Efetuar uma consulta trazendo o nome do livro e somente o ano da edição do livro, ordenando de forma desc do ano da edição do livro (ORDER BY TO_CHAR(DATA, ‘YYYY’) DESC
-        cc) Inserir os seguintes livros conforme informações abaixo:
+--        z) Alterar as colunas de nome do livro, autor e ano da edição para obrigatórios (NOT NULL)
+        
+alter table livro modify nome varchar(100) not null;
+alter table livro modify autor varchar(100) not null;
+alter table livro modify data_edicao datetime not null;
+        
+--        aa) Inserir um livro dos os dados abaixo, verifique que irá exibir um erro no console:
+        
+-- Nome: Cem Anos de Solidão
+-- Autor: Gabriel García Márquez
+
+insert into livro (id, nome, autor) values(11, "Cem Anos de Solidão", "Gabriel García Márquez");
+
+-- Alterar agora o inser para inserir a data de edição para a data 03/06/1879, e insira novamente o livro. Verifique que irá funcionar o insert.
+
+insert into livro (id, nome, autor, data_edicao) values(11, "Cem Anos de Solidão", "Gabriel García Márquez", '1879-06-03');
+
+--        bb) Efetuar uma consulta trazendo o nome do livro e somente o ano da edição do livro,
+--        ordenando de forma desc do ano da edição do livro (ORDER BY TO_CHAR(DATA, ‘YYYY’) DESC
+
+select nome, year(data_edicao) from livro order by data_edicao desc; 
+
+--        cc) Inserir os seguintes livros conforme informações abaixo:
+/*        
 Nome: A volta dos que não foram
 Data de edição: 1789
 Autor: Liev Tolstói
+*/
 
+insert into livro (id, nome, data_edicao, autor) values(12, "A volta dos que não foram", '1789-01-01', "Liev Tolstói");
+
+/*
 Nome: Poeira em alto mar
 Data de edição: 1809
 Autor: Thomas Mann
+*/
 
+insert into livro (id, nome, data_edicao, autor) values(13, "Poeira em alto mar", '1809-01-01', "Thomas Mann");
+
+/*
 Nome: Grande visões de um cego
 Data de edição: 1968
 Autor: James Joyce
+*/
 
+insert into livro (id, nome, data_edicao, autor) values(14, "Grande visões de um cego", '1968-01-01', "James Joyce");
+
+/*
 Nome: Lucidez de um louco
 Data de edição: 1709
 Autor: Gabriel García Márquez
+*/
 
-        dd) Selecionar apenas os livros sem ano de lançamento e mostrar nos campos o nome do livro e o ano da data de edição
-        ee) Alterar os livros sem ano de lançamento inserindo o ano da data de edição do livro
-        ff) Alterar a quantidade de páginas dos livros sem valor informado para 100
-        gg)  Selecionar a quantidade de autores diferentes na tabela livro
-        hh)  Selecionar a quantidade de livros que possuem “a” ou “A” no nome
-        ii) Selecionar a soma de páginas que possuem data de edição maior que 01/01/2005. Incluir apelido na coluna de “Soma de páginas”
-        jj) Alterar a tabela para possui a coluna VALOR para armazenar o valor do livro
-        kk) Alterar o valor dos livros dos autores “Miguel De Cervantes”, “Liev Tolstói”, “Thomas Mann” para 35,99.
-        ll) Alterar o valor dos livros de nome “Em Busca do Templo Perdido”, “O Som e a Fúria”, “Chapeuzinho vermelho”, “Dona florinda” para 12,89.
-        mm) Alterar o valor dos livros que ainda não possuem valor e possuem data de edição antes de 01/01/2006 para 19,70.
-        nn) Alterar o valor dos demais livros que não possuem valor para 9,99.
-        oo) Selecionar a média do preço dos livros presentes das tabelas, inserindo um apelido de “media_de_precos”.
-        pp) Selecionar o nome do livro, e caso o livro tenha data de edição maior que 01/01/2015 mostrar “O livro é de no máximo dois anos”, caso contrário, mostrar “O livro é mais velho que dois anos”.
-        qq) Selecionar a quantidade de livros por volume. 
-        rr) Selecionar a quantidade de livros que possuem pelo mês da edição
-        ss) Selecionar o nome do livro, caso o mesmo possua alguma vogal, mostrar “Possui vogal no nome”, caso contrário mostrar “Não possui vogal no nome”. 
-        tt) Selecionar a média dos valores dos livros que possuem vogal no nome e que não possuem vogal no nome, utilizado o case do exercício anterior.
-    16) Criar as consultas que retornem os registros conforme o desejado:
-        a) Executar o arquivo de s exercício_16.sql
-        b) Mostrar os nomes dos filhos e se possuir mãe, mostrar possui mãe, caso contrário mostrar não tem mãe, se possui pai, mostrar possui pai, caso contrário mostrar não tem pai.
-	Resultado esperado:
+insert into livro (id, nome, data_edicao, autor) values(15, "Lucidez de um louco", '1709-01-01', "Gabriel García Márquez");
+
+--        dd) Selecionar apenas os livros sem ano de lançamento e mostrar nos campos o nome do livro e o ano da data de edição
+
+select nome, year(data_edicao) from livro where ano_lancamento is null;
+
+--         ee) Alterar os livros sem ano de lançamento inserindo o ano da data de edição do livro
+
+update livro set ano_lancamento = year(data_edicao) where ano_lancamento is null;
+
+--        ff) Alterar a quantidade de páginas dos livros sem valor informado para 100
+
+update livro set qtd_paginas = 100 where qtd_paginas is null;
+
+--        gg)  Selecionar a quantidade de autores diferentes na tabela livro
+
+select count(distinct autor) from livro;
+
+--        hh)  Selecionar a quantidade de livros que possuem “a” ou “A” no nome
+
+select count(nome) from livro where nome like "%a%";
+
+--        ii) Selecionar a soma de páginas que possuem data de edição maior que 01/01/2005. Incluir apelido na coluna de “Soma de páginas”
+
+select sum(qtd_paginas) as "Soma de páginas" from livro where data_edicao > '2005-01-01';
+
+--        jj) Alterar a tabela para possui a coluna VALOR para armazenar o valor do livro
+
+alter table livro add column valor float(10,2);
+
+--        kk) Alterar o valor dos livros dos autores “Miguel De Cervantes”, “Liev Tolstói”, “Thomas Mann” para 35,99.
+
+update livro set valor = 35.99 where autor = "Miguel De Cervantes" or autor = "Liev Tolstói" or autor = "Thomas Mann";
+
+--        ll) Alterar o valor dos livros de nome “Em Busca do Templo Perdido”, “O Som e a Fúria”, “Chapeuzinho vermelho”, “Dona florinda” para 12,89.
+
+update livro set valor = 12.89 where nome = "Em Busca do Templo Perdido" or nome = "O Som e a Fúria" or nome = "Chapeuzinho vermelho" or  nome = "Dona florinda";
+
+--        mm) Alterar o valor dos livros que ainda não possuem valor e possuem data de edição antes de 01/01/2006 para 19,70.
+
+update livro set valor = 19.70 where valor is null and data_edicao < '2006-01-01';
+
+--        nn) Alterar o valor dos demais livros que não possuem valor para 9,99.
+
+update livro set valor = 9.99 where valor is null;
+
+??        oo) Selecionar a média do preço dos livros presentes das tabelas, inserindo um apelido de “media_de_precos”.
+
+select avg(valor) as "media_de_precos" from livro;
+
+--        pp) Selecionar o nome do livro, e caso o livro tenha data de edição maior que 01/01/2015 mostrar “O livro é de no máximo dois anos”,
+-- caso contrário, mostrar “O livro é mais velho que dois anos”.
+
+select nome, if(data_edicao > '2015-01-01', "O livro é de no máximo dois anos", "O livro é mais velho que dois anos") as "tempo" from livro;
+
+--        qq) Selecionar a quantidade de livros por volume.
+
+select volume, count(*) from livro group by volume ;
+
+--        rr) Selecionar a quantidade de livros que possuem pelo mês da edição
+
+select month(data_edicao), count(*) from livro group by month(data_edicao);
+
+--        ss) Selecionar o nome do livro, caso o mesmo possua alguma vogal, mostrar “Possui vogal no nome”,
+-- caso contrário mostrar “Não possui vogal no nome”. 
+
+select
+nome,
+if(nome like "%a%" or nome like "%e%" or nome like "%i%" or nome like "%o%" or nome like "%u%",
+"Possui vogal no nome",
+"Não possui vogal no nome") as "vogal" from livro;
+
+--        tt) Selecionar a média dos valores dos livros que possuem vogal no nome e que não possuem vogal no nome,
+-- utilizado o case do exercício anterior.
+
+select avg(valor) from livro where nome like "%a%" or nome like "%e%" or nome like "%i%" or nome like "%o%" or nome like "%u%";
+select avg(valor) from livro where nome not like "%a%" and nome not like "%e%" and nome not like "%i%" and nome not like "%o%" and nome not like "%u%";
+
+--    16) Criar as consultas que retornem os registros conforme o desejado:
+
+create database ex16;
+
+use ex16;
+
+--        a) Executar o arquivo de s exercício_16.sql
+
+--        b) Mostrar os nomes dos filhos
+-- e se possuir mãe, mostrar possui mãe, caso contrário mostrar não tem mãe,
+-- se possui pai, mostrar possui pai, caso contrário mostrar não tem pai.
+/* Resultado esperado:
 		Zézinho | Tem mãe 	   | Tem pai
 		Tuca 	  | Não tem mãe | Não tem pai
+*/
+
+select nome, if(MAE_CODIGO is null, "Não tem mãe", "Tem mãe"), if(PAI_CODIGO is null, "Não tem pai", "Tem pai") from filho;
 
         c) Mostrar os nomes dos filhos e o nome da mãe. Trazer todos os filhos independente se possui mãe ou não. Se não possuir mãe, mostrar no lugar do nome da mãe, não tem mãe.
         d) Mostrar os nomes dos filhos, nome da mãe e nome do pai. Trazer apenas filhos que tenham mãe. Se não possui pai, mostrar no lugar do nome da pai, não tem pai. 
@@ -409,8 +513,3 @@ UNION
 SELECT NOME, 'Filho com pai' FROM FILHO
 WHERE PAI IS NOT NULL
 ORDER BY PAI;
-
-
-
-
-
